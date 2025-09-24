@@ -154,3 +154,38 @@ function toggleComplete(id: number): void {
 // Initial load
 loadTasks();
 renderTasks();
+
+
+// =============================
+// ✅ Hamburger Menu Integration
+// =============================
+
+const hamburger = document.getElementById("hamburger") as HTMLButtonElement | null;
+const sidebar = document.getElementById("sidebar") as HTMLElement | null;
+
+if (hamburger && sidebar) {
+    // Create overlay
+    const overlay: HTMLDivElement = document.createElement("div");
+    overlay.classList.add("overlay");
+    document.body.appendChild(overlay);
+
+    // Toggle sidebar + overlay
+    hamburger.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+
+        // Toggle icon between bars and X
+        if (hamburger.innerHTML.includes("fa-bars")) {
+            hamburger.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+        } else {
+            hamburger.innerHTML = `<i class="fa-solid fa-bars"></i>`;
+        }
+    });
+
+    // Close sidebar on overlay click
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+        hamburger.innerHTML = `<i class="fa-solid fa-bars"></i>`;
+    });
+}

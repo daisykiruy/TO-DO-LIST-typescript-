@@ -130,3 +130,32 @@ function toggleComplete(id) {
 // Initial load
 loadTasks();
 renderTasks();
+// =============================
+// ✅ Hamburger Menu Integration
+// =============================
+var hamburger = document.getElementById("hamburger");
+var sidebar = document.getElementById("sidebar");
+if (hamburger && sidebar) {
+    // Create overlay
+    var overlay_1 = document.createElement("div");
+    overlay_1.classList.add("overlay");
+    document.body.appendChild(overlay_1);
+    // Toggle sidebar + overlay
+    hamburger.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+        overlay_1.classList.toggle("active");
+        // Toggle icon between bars and X
+        if (hamburger.innerHTML.includes("fa-bars")) {
+            hamburger.innerHTML = "<i class=\"fa-solid fa-xmark\"></i>";
+        }
+        else {
+            hamburger.innerHTML = "<i class=\"fa-solid fa-bars\"></i>";
+        }
+    });
+    // Close sidebar on overlay click
+    overlay_1.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+        overlay_1.classList.remove("active");
+        hamburger.innerHTML = "<i class=\"fa-solid fa-bars\"></i>";
+    });
+}

@@ -1,18 +1,23 @@
+/* =====================
+   BASE LAYOUT
+   ===================== */
 body {
   margin: 0;
   padding: 0;
-  display: flex;           /* Put sidebar and main side by side */
-  height: 100vh;           /* Full viewport height */
+  display: flex;           /* Sidebar + main side by side */
+  height: 100vh;
+  flex-direction: row;     /* default row layout */
+  overflow-x: hidden;      /* stop sideways scroll globally */
+  font-family: sans-serif;
 }
 
 :root {
-  --color-primary: #7c3e04;   /* Dark blue-gray */
-  --color-secondary: #f37d0f; /* Muted purple-gray */
-  --color-accent: #ebac71;    /* Soft rose */
-  --color-bg:#f4d9c0;        /* Light background */
-  --color-text:#673404;      /* Dark text */
+  --color-primary: #7c3e04;
+  --color-secondary: #f37d0f;
+  --color-accent: #ebac71;
+  --color-bg: #f4d9c0;
+  --color-text: #673404;
 }
-/* Default (Today page) already in :root */
 
 /* Personal page theme */
 .personal-page {
@@ -33,16 +38,20 @@ body {
 }
 
 .sidebar-container {
-  width: 20%;                  /* Fixed width for sidebar */
+  width: 20%;
   background-color: var(--color-bg);
   padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
 }
+
 .sidebar-container .heading-one {
   font-size: 22px;
   margin-bottom: 30px;
   text-align: center;
   color: var(--color-text);
 }
+
 .sidebar-container .heading-two {
   font-size: 18px;
   margin-bottom: 10px;
@@ -69,53 +78,50 @@ body {
   padding: 15px 15px;
   display: block;
   border-radius: 6px;
-
 }
 
 .sidebar-menu li a:hover {
   background-color: var(--color-accent);
   color: var(--color-text);
 }
- 
+
 .main-container {
-  width: 80%;                  /* Takes remaining space */
+  width: 80%;
   background-color: var(--color-accent);
   padding: 20px;
   justify-content: center;
   align-items: center;
   text-align: center;
-
+  box-sizing: border-box;
 }
 
 .main-container .heading-one {
   font-size: 32px;
   margin-bottom: 30px;
-  text-align: center;
   color: var(--color-text);
 }
+
 .main-container .heading-two {
   font-size: 22px;
   margin-bottom: 20px;
-  text-align: center;
   color: var(--color-text);
 }
+
 .card {
   background-color: var(--color-bg);
   padding: 30px;
   border-radius: 12px;
   width: 100%;
   max-width: 800px;
-  height: 400px;             /* Tall card */
+  height: 400px;
   overflow: hidden;
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-  display:inline-block;
-  align-items: flex-start;    /* Keep content at the top */
-  gap: 10px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .task-input {
-  flex: 1;                    /* Take available width */
+  flex: 1;
   padding: 10px;
   font-size: 16px;
   border: 1px solid var(--color-secondary);
@@ -123,15 +129,15 @@ body {
 }
 
 .addTask-btn {
-  padding: 10px 15px;         /* Small button */
+  padding: 10px 15px;
   font-size: 14px;
   border: none;
   border-radius: 6px;
   background-color: var(--color-primary);
   color: #fff;
   cursor: pointer;
-  margin-left: 10px;          /* Space between input & button */
-  height: 42px;               /* Align with input */
+  margin-left: 10px;
+  height: 42px;
   transition: background 0.3s;
 }
 
@@ -140,6 +146,106 @@ body {
 }
 
 .input-row {
-  display: flex;              /* Put input & button in one row */
+  display: flex;
   width: 100%;
+}
+
+/* =====================
+   HAMBURGER MENU
+   ===================== */
+.hamburger {
+  display: none; /* hidden by default */
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+.overlay.active {
+  display: block;
+}
+
+/* =====================
+   RESPONSIVE BEHAVIOR
+   ===================== */
+
+/* Large screens (desktops ≥1200px) */
+@media (min-width: 1200px) {
+  .sidebar-container { width: 20%; }
+  .main-container { width: 80%; }
+}
+
+/* Tablets (≤992px) */
+@media (max-width: 992px) {
+  .sidebar-container { width: 25%; }
+  .main-container { width: 75%; }
+  .main-container .heading-one { font-size: 26px; }
+  .card { height: auto; padding: 40px 20px; }
+}
+
+/* Mobiles (≤768px) */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    overflow-x: hidden;  /* no sideways scroll */
+    overflow-y: auto;    /* allow vertical scroll only */
+  }
+
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+    background: var(--color-bg);
+    transition: left 0.3s ease;
+  }
+  .sidebar-container.active { left: 0; }
+
+  .hamburger { display: block; }
+
+  .main-container {
+    width: 100%;
+    margin: 0;
+    padding: 50px 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 100%;
+    height: auto;
+    padding: 20px 2px;
+    margin: 0 auto;
+  }
+
+  .input-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .addTask-btn {
+    margin: 0;
+    height: 50px;
+    width: 60px;
+    
+    
+  }
 }
