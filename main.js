@@ -15,6 +15,21 @@ taskList.style.marginTop = '70px';
 taskList.style.overflowY = 'auto'; // vertical scroll
 taskList.style.maxHeight = '300px'; // height of list area inside card
 card.appendChild(taskList);
+// ---- Local Storage Helpers ----
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('taskIdCounter', taskIdCounter.toString());
+}
+function loadTasks() {
+    var storedTasks = localStorage.getItem('tasks');
+    var storedCounter = localStorage.getItem('taskIdCounter');
+    if (storedTasks) {
+        tasks = JSON.parse(storedTasks);
+    }
+    if (storedCounter) {
+        taskIdCounter = parseInt(storedCounter, 10);
+    }
+}
 // Function to render tasks
 function renderTasks() {
     taskList.innerHTML = ''; // Clear existing tasks
@@ -33,7 +48,7 @@ function renderTasks() {
         // Task text
         var span = document.createElement('span');
         span.textContent = task.text;
-        span.style.cursor = 'pointer';
+        span.style.cursor = 'default'; // not clickable anymore
         if (task.completed)
             span.style.textDecoration = 'line-through';
         li.appendChild(span);
@@ -41,6 +56,17 @@ function renderTasks() {
         var btnContainer = document.createElement('div');
         btnContainer.style.display = 'flex';
         btnContainer.style.gap = '5px';
+        // Complete button (new)
+        var completeBtn = document.createElement('button');
+        completeBtn.textContent = task.completed ? 'Undo' : 'Complete';
+        completeBtn.style.background = task.completed ? '#4caf50' : '#2196f3';
+        completeBtn.style.color = '#fff';
+        completeBtn.style.border = 'none';
+        completeBtn.style.padding = '5px 10px';
+        completeBtn.style.borderRadius = '5px';
+        completeBtn.style.cursor = 'pointer';
+        completeBtn.onclick = function () { return toggleComplete(task.id); };
+        btnContainer.appendChild(completeBtn);
         // Edit button
         var editBtn = document.createElement('button');
         editBtn.textContent = 'Edit';
@@ -62,11 +88,11 @@ function renderTasks() {
         deleteBtn.style.cursor = 'pointer';
         deleteBtn.onclick = function () { return deleteTask(task.id); };
         btnContainer.appendChild(deleteBtn);
-        // Toggle complete on click of task text
-        span.onclick = function () { return toggleComplete(task.id); };
         li.appendChild(btnContainer);
         taskList.appendChild(li);
     });
+    // Save tasks every time we render
+    saveTasks();
 }
 // Add Task
 addBtn.addEventListener('click', function () {
@@ -77,7 +103,7 @@ addBtn.addEventListener('click', function () {
     taskInput.value = '';
     renderTasks();
 });
-// Similarly for editTask
+// Edit Task
 function editTask(id) {
     var task = tasks.find(function (t) { return t.id === id; });
     if (task === undefined)
@@ -95,12 +121,12 @@ function deleteTask(id) {
 }
 // Toggle Complete
 function toggleComplete(id) {
-    // Use explicit type and check for undefined
     var task = tasks.find(function (t) { return t.id === id; });
     if (task === undefined)
-        return; // exit if not found
+        return;
     task.completed = !task.completed;
     renderTasks();
 }
-// Initial render
+// Initial load
+loadTasks();
 renderTasks();

@@ -12,6 +12,25 @@ body {
   --color-bg:#f4d9c0;        /* Light background */
   --color-text:#673404;      /* Dark text */
 }
+/* Default (Today page) already in :root */
+
+/* Personal page theme */
+.personal-page {
+  --color-primary: #f6627b;
+  --color-secondary: #A66A75;
+  --color-accent: #f1b6c1;
+  --color-bg: #F7EFF0;
+  --color-text: #4B2C31;
+}
+
+/* Work page theme */
+.work-page {
+  --color-primary: #0E8C7F;
+  --color-secondary: #0B5C54;
+  --color-accent: #8FD9D2;
+  --color-bg: #E6F9F7;
+  --color-text: #062E2A;
+}
 
 .sidebar-container {
   width: 20%;                  /* Fixed width for sidebar */
@@ -29,6 +48,8 @@ body {
   margin-bottom: 10px;
   text-align: center;
   color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-text);
 }
 
 .sidebar-menu {
@@ -44,8 +65,8 @@ body {
 .sidebar-menu li a {
   text-decoration: none;
   color: var(--color-text);
-  font-size: 16px;
-  padding: 10px 15px;
+  font-size: 20px;
+  padding: 15px 15px;
   display: block;
   border-radius: 6px;
 
@@ -67,7 +88,7 @@ body {
 }
 
 .main-container .heading-one {
-  font-size: 22px;
+  font-size: 32px;
   margin-bottom: 30px;
   text-align: center;
   color: var(--color-text);

@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.calendar-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  width: 90%;
+  max-width: 500px; /* smaller than before */
+  text-align: center;
+}
+
+#monthYear {
+  margin: 10px 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.calendar-controls {
+  margin-bottom: 10px;
+}
+
+.calendar-controls button {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calendar-controls button:hover {
+  background: #555;
+}
+
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar th, .calendar td {
+  border: 1px solid #ccc;
+  padding: 10px; /* smaller padding */
+  text-align: center;
+  vertical-align: top;
+  position: relative;
+  height: 60px; /* reduced height */
+  width: 14%;   /* each cell gets equal space */
+  cursor: pointer;
+}
+
+.calendar th {
+  background: #333;
+  color: #fff;
+}
+
+.calendar td.today {
+  background: #ffcccc;
+  color: red;
+  font-weight: bold;
+}
+
+.calendar td.special {
+  background: pink;
+}
+
+.event-input {
+  border: none;
+  border-top: 1px solid #aaa;
+  margin-top: 3px;
+  width: 90%;
+  font-size: 11px;
+  padding: 2px;
+}

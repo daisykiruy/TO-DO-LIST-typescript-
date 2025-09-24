@@ -25,8 +25,25 @@ taskList.style.marginTop = '70px';
 taskList.style.overflowY = 'auto';   // vertical scroll
 taskList.style.maxHeight = '300px';  // height of list area inside card
 
-
 card.appendChild(taskList);
+
+// ---- Local Storage Helpers ----
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('taskIdCounter', taskIdCounter.toString());
+}
+
+function loadTasks() {
+    const storedTasks = localStorage.getItem('tasks');
+    const storedCounter = localStorage.getItem('taskIdCounter');
+
+    if (storedTasks) {
+        tasks = JSON.parse(storedTasks);
+    }
+    if (storedCounter) {
+        taskIdCounter = parseInt(storedCounter, 10);
+    }
+}
 
 // Function to render tasks
 function renderTasks() {
@@ -36,7 +53,7 @@ function renderTasks() {
         const li = document.createElement('li');
         li.className = 'task-item';
         li.style.display = 'flex';
-        li.style.alignItems = ''
+        li.style.alignItems = '';
         li.style.justifyContent = 'space-between';
         li.style.marginBottom = '10px';
         li.style.padding = '8px';
@@ -48,7 +65,7 @@ function renderTasks() {
         // Task text
         const span = document.createElement('span');
         span.textContent = task.text;
-        span.style.cursor = 'pointer';
+        span.style.cursor = 'default'; // not clickable anymore
         if (task.completed) span.style.textDecoration = 'line-through';
         li.appendChild(span);
 
@@ -56,6 +73,18 @@ function renderTasks() {
         const btnContainer = document.createElement('div');
         btnContainer.style.display = 'flex';
         btnContainer.style.gap = '5px';
+
+        // Complete button (new)
+        const completeBtn = document.createElement('button');
+        completeBtn.textContent = task.completed ? 'Undo' : 'Complete';
+        completeBtn.style.background = task.completed ? '#4caf50' : '#2196f3';
+        completeBtn.style.color = '#fff';
+        completeBtn.style.border = 'none';
+        completeBtn.style.padding = '5px 10px';
+        completeBtn.style.borderRadius = '5px';
+        completeBtn.style.cursor = 'pointer';
+        completeBtn.onclick = () => toggleComplete(task.id);
+        btnContainer.appendChild(completeBtn);
 
         // Edit button
         const editBtn = document.createElement('button');
@@ -80,12 +109,12 @@ function renderTasks() {
         deleteBtn.onclick = () => deleteTask(task.id);
         btnContainer.appendChild(deleteBtn);
 
-        // Toggle complete on click of task text
-        span.onclick = () => toggleComplete(task.id);
-
         li.appendChild(btnContainer);
         taskList.appendChild(li);
     });
+
+    // Save tasks every time we render
+    saveTasks();
 }
 
 // Add Task
@@ -97,7 +126,7 @@ addBtn.addEventListener('click', () => {
     renderTasks();
 });
 
-// Similarly for editTask
+// Edit Task
 function editTask(id: number): void {
     const task: Task | undefined = tasks.find(t => t.id === id);
     if (task === undefined) return;
@@ -116,12 +145,12 @@ function deleteTask(id: number) {
 
 // Toggle Complete
 function toggleComplete(id: number): void {
-    // Use explicit type and check for undefined
     const task: Task | undefined = tasks.find(t => t.id === id);
-    if (task === undefined) return;  // exit if not found
+    if (task === undefined) return;
     task.completed = !task.completed;
     renderTasks();
 }
 
-// Initial render
+// Initial load
+loadTasks();
 renderTasks();
