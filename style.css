@@ -1,0 +1,124 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;           /* Put sidebar and main side by side */
+  height: 100vh;           /* Full viewport height */
+}
+
+:root {
+  --color-primary: #7c3e04;   /* Dark blue-gray */
+  --color-secondary: #f37d0f; /* Muted purple-gray */
+  --color-accent: #ebac71;    /* Soft rose */
+  --color-bg:#f4d9c0;        /* Light background */
+  --color-text:#673404;      /* Dark text */
+}
+
+.sidebar-container {
+  width: 20%;                  /* Fixed width for sidebar */
+  background-color: var(--color-bg);
+  padding: 20px;
+}
+.sidebar-container .heading-one {
+  font-size: 22px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: var(--color-text);
+}
+.sidebar-container .heading-two {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin: 25px 0;
+}
+
+.sidebar-menu li a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 16px;
+  padding: 10px 15px;
+  display: block;
+  border-radius: 6px;
+
+}
+
+.sidebar-menu li a:hover {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+ 
+.main-container {
+  width: 80%;                  /* Takes remaining space */
+  background-color: var(--color-accent);
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+
+.main-container .heading-one {
+  font-size: 22px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: var(--color-text);
+}
+.main-container .heading-two {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--color-text);
+}
+.card {
+  background-color: var(--color-bg);
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;             /* Tall card */
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  display:inline-block;
+  align-items: flex-start;    /* Keep content at the top */
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.task-input {
+  flex: 1;                    /* Take available width */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 6px;
+}
+
+.addTask-btn {
+  padding: 10px 15px;         /* Small button */
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px;          /* Space between input & button */
+  height: 42px;               /* Align with input */
+  transition: background 0.3s;
+}
+
+.addTask-btn:hover {
+  background-color: var(--color-secondary);
+}
+
+.input-row {
+  display: flex;              /* Put input & button in one row */
+  width: 100%;
+}
