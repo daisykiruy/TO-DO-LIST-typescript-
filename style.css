@@ -18,7 +18,7 @@ body {
 .personal-page {
   --color-primary: #f6627b;
   --color-secondary: #A66A75;
-  --color-accent: #f1b6c1;
+  --color-accent: #f1a9b6;
   --color-bg: #F7EFF0;
   --color-text: #4B2C31;
 }
@@ -27,7 +27,7 @@ body {
 .work-page {
   --color-primary: #0E8C7F;
   --color-secondary: #0B5C54;
-  --color-accent: #8FD9D2;
+  --color-accent: #57c0b5;
   --color-bg: #E6F9F7;
   --color-text: #062E2A;
 }
