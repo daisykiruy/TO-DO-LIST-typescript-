@@ -17,6 +17,7 @@ body {
   width: 90%;
   max-width: 500px; /* smaller than before */
   text-align: center;
+  max-height: 500px;
 }
 
 #monthYear {
@@ -54,8 +55,8 @@ body {
   text-align: center;
   vertical-align: top;
   position: relative;
-  height: 60px; /* reduced height */
-  width: 14%;   /* each cell gets equal space */
+  height: 30px; /* reduced height */
+  width: 10%;   /* each cell gets equal space */
   cursor: pointer;
 }
 
@@ -71,7 +72,7 @@ body {
 }
 
 .calendar td.special {
-  background: pink;
+  background: rgb(76, 216, 229);
 }
 
 .event-input {
